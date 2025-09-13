@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Predict - House Price</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h2>House Price Prediction</h2>
+
+    {% with messages = get_flashed_messages(category_filter=["error","success"]) %}
+      {% if messages %}
+        {% for message in messages %}
+          <div class="flash">{{ message }}</div>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+
+    <form method="POST">
+        <input type="number" step="any" name="bedrooms" placeholder="Number of Bedrooms" required><br>
+        <input type="number" step="any" name="bathrooms" placeholder="Number of Bathrooms" required><br>
+        <input type="number" step="any" name="sqft" placeholder="Square Feet" required><br>
+        <select name="location" required>
+            <option value="">Select City</option>
+            <option value="Chennai">Chennai</option>
+            <option value="Madurai">Madurai</option>
+            <option value="Coimbatore">Coimbatore</option>
+            <option value="Salem">Salem</option>
+            <option value="Trichy">Trichy</option>
+        </select><br>
+        <button type="submit">Predict</button>
+    </form>
+
+    {% if prediction %}
+        <h3>Predicted Price: {{ prediction }}</h3>
+    {% endif %}
+
+    <a href="{{ url_for('logout') }}">Logout</a>
+</body>
+</html>
